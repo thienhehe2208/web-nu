@@ -1,7 +1,9 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-
+<%@page import="model.User"%>
+<%
+    User loggedUser = (User) session.getAttribute("loggedUser");
+%>
 <div class="header">
-
     <!-- LOGO -->
     <div class="logo">
         <img src="img/logo.png">
@@ -19,14 +21,19 @@
 
     <!-- RIGHT -->
     <div class="header-right">
-        <a class="btn" href="DangNhap.jsp">Đăng nhập</a>
-        <a class="btn" href="DangKy.jsp">Đăng ký</a>
+        <% if (loggedUser != null) { %>
+            <span style="color:#fff; font-size:13px;">
+                👤 <b><%= loggedUser.getAccountName() %></b>
+            </span>
+            <a class="btn" href="UserServlet?action=logout">Đăng xuất</a>
+        <% } else { %>
+            <a class="btn" href="UserServlet?action=login">Đăng nhập</a>
+            <a class="btn" href="UserServlet?action=register">Đăng ký</a>
+        <% } %>
 
-        <!-- CART (chưa có giỏ hàng) -->
         <a class="cart-btn" href="GioHang.jsp">
             <img src="img/giohang.png" class="cart-icon">
             <span class="cart-count">0</span>
         </a>
     </div>
-
 </div>

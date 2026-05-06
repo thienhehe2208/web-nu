@@ -15,13 +15,13 @@
         <a href="ProductServlet" class="menu-link category">
             <img src="img/trangchu.png"> Trang chủ
         </a>
-        <a href="ProductServlet?action=filter&type=new" class="menu-link category">
+        <a href="ProductServlet?action=new" class="menu-link category">
             <img src="img/hangmoi.png"> Hàng mới
         </a>
-        <a href="ProductServlet?action=filter&type=bestseller" class="menu-link category">
+        <a href="ProductServlet?action=bestseller" class="menu-link category">
             <img src="img/banchay.png"> Bán chạy
         </a>
-        <a href="ProductServlet?action=filter&type=discount" class="menu-link category">
+        <a href="ProductServlet?action=discount" class="menu-link category">
             <img src="img/giamgia.png"> Giảm giá
         </a>
         <button class="menu-link contact" onclick="openContact()">
