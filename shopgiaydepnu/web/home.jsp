@@ -36,6 +36,34 @@
             <div class="banner-text">🔥 ƯU ĐÃI CỰC SỐC - ĐÓN SINH NHẬT TTQ SHOP</div>
         </div>
 
+        <!-- NÚT GÓP Ý -->
+        <div style="
+             display: flex;
+             justify-content: flex-end;
+             padding: 12px 32px 4px 32px;
+             ">
+            <a href="ContactServlet" style="
+               display: inline-flex;
+               align-items: center;
+               gap: 8px;
+               background: #e74c3c;
+               color: #fff;
+               padding: 10px 22px;
+               border-radius: 24px;
+               font-family: 'Poppins', sans-serif;
+               font-size: 0.93rem;
+               font-weight: 600;
+               text-decoration: none;
+               box-shadow: 0 3px 12px rgba(231,76,60,0.25);
+               transition: background 0.2s, transform 0.15s;
+               letter-spacing: 0.3px;
+               "
+               onmouseover="this.style.background = '#c0392b'; this.style.transform = 'translateY(-2px)'"
+               onmouseout="this.style.background = '#e74c3c'; this.style.transform = 'translateY(0)'">
+                💬 Góp Ý
+            </a>
+        </div>
+        
         <jsp:include page="menu.jsp"/>
 
         <!-- DANH SÁCH SẢN PHẨM -->
