@@ -33,35 +33,15 @@
             <button onclick="prevSlide()" class="btn-left">❮</button>
             <img id="bannerImg" src="img/banners1.png">
             <button onclick="nextSlide()" class="btn-right">❯</button>
-            <div class="banner-text">🔥 ƯU ĐÃI CỰC SỐC - ĐÓN SINH NHẬT TTQ SHOP</div>
         </div>
 
-        <!-- NÚT GÓP Ý -->
+        
         <div style="
              display: flex;
              justify-content: flex-end;
              padding: 12px 32px 4px 32px;
              ">
-            <a href="ContactServlet" style="
-               display: inline-flex;
-               align-items: center;
-               gap: 8px;
-               background: #e74c3c;
-               color: #fff;
-               padding: 10px 22px;
-               border-radius: 24px;
-               font-family: 'Poppins', sans-serif;
-               font-size: 0.93rem;
-               font-weight: 600;
-               text-decoration: none;
-               box-shadow: 0 3px 12px rgba(231,76,60,0.25);
-               transition: background 0.2s, transform 0.15s;
-               letter-spacing: 0.3px;
-               "
-               onmouseover="this.style.background = '#c0392b'; this.style.transform = 'translateY(-2px)'"
-               onmouseout="this.style.background = '#e74c3c'; this.style.transform = 'translateY(0)'">
-                💬 Góp Ý
-            </a>
+            
         </div>
         
         <jsp:include page="menu.jsp"/>
@@ -89,12 +69,20 @@
                 <% } else {%>
                 <p class="price"><%= fmt.format((long) p.getPrice())%>đ</p>
                 <% }%>
-                <a href="ProductServlet?action=detail&id=<%= p.getId()%>">
-                    <img src="img/thongtinsp.png"> Thông Tin
-                </a>
-                <button class="add-cart-btn" onclick="openModal(<%= p.getId()%>, '<%= pName%>')">
-                    <img src="img/them.png"> Thêm vào giỏ
-                </button>
+                <div class="product-actions">
+
+    <a href="ProductServlet?action=detail&id=<%= p.getId()%>" class="info-btn">
+        <img src="img/thongtinsp.png">
+        Thông Tin
+    </a>
+
+    <button class="add-cart-btn"
+            onclick="openModal(<%= p.getId()%>, '<%= pName%>')">
+        <img src="img/them.png">
+        Thêm vào giỏ
+    </button>
+
+</div>
             </div>
             <%
                     }
@@ -104,15 +92,49 @@
 
         <!-- CHATBOT -->
         <div class="chatbot">
-            <div class="chat-icon" onclick="toggleChat()">
-                <img src="img/chatbot.png">
-            </div>
-            <div id="chatBox" class="chat-box">
-                <h4>Chat AI</h4>
-                <div class="chat-content">TTQ SHOP XIN CHÀO!</div>
-                <input type="text" placeholder="Nhập tin nhắn..." class="chat-input">
+
+    <div class="chat-icon" onclick="toggleChat()">
+        <img src="img/chatbot.png">
+    </div>
+
+    <div class="chat-box" id="chatBox">
+
+        <div class="chat-header">
+            <img src="img/logo.png">
+
+            <div>
+                <h4>TTQ SHOP</h4>
+                <span>Hỗ trợ khách hàng 24/7</span>
             </div>
         </div>
+
+        <div class="chat-content">
+
+            <div class="message bot-message">
+                Xin chào 👋 TTQ SHOP có thể giúp gì cho bạn?
+            </div>
+            
+        </div>
+
+        <div class="chat-footer">
+            <input type="text"
+                   class="chat-input"
+                   placeholder="Nhập tin nhắn...">
+
+            <button class="send-btn">
+                ➤
+            </button>
+        </div>
+
+    </div>
+
+</div>
+        <!-- FLOATING CONTACT BUTTON -->
+            <div class="floating-contact">
+                 <a href="ContactServlet">
+                 <img src="img/contact.png" >
+                 </a>
+            </div>
 
         <!-- MODAL THÊM GIỎ HÀNG -->
         <div id="cartModal" class="modal">

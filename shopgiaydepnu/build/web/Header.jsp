@@ -12,13 +12,16 @@
 
     <!-- THANH TÌM KIẾM -->
     <div class="header-search">
-        <form action="ProductServlet" method="get">
-            <input type="hidden" name="action" value="search">
-            <input type="text" name="keyword" placeholder="Tìm kiếm sản phẩm...">
-            <button type="submit">🔍</button>
-        </form>
-    </div>
+    <form action="ProductServlet" method="get">
+        <input type="hidden" name="action" value="search">
 
+        <input type="text" name="keyword" placeholder="Tìm kiếm sản phẩm...">
+
+        <button type="submit">
+            <img src="img/timkiem.png" alt="Search">
+        </button>
+    </form>
+</div>
     <!-- RIGHT -->
     <div class="header-right">
         <% if (loggedUser != null) { %>

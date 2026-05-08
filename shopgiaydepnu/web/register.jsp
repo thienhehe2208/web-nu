@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Đăng Ký</title>
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/Style.css">
     <style>
         /* mở rộng thêm cho form đăng ký rộng hơn */
         .login-container { width: 440px; }
@@ -13,7 +13,7 @@
 <body class="login-body">
 
 <div class="login-container">
-    <h2>📝 Đăng Ký</h2>
+    <h2>ĐĂNG KÍ</h2>
 
     <% String error = (String) request.getAttribute("error"); %>
     <% if (error != null) { %>
