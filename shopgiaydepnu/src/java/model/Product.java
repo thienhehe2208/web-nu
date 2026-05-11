@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package model;
 
 import java.util.List;
@@ -18,12 +14,18 @@ public class Product {
     private String description;
     private boolean isNew;
     private boolean isBestseller;
+    private int stock;
     private List<String> sizes;
 
     public Product() {
     }
 
-    public Product(int id, int categoryId, String sku, String name, double price, Double discountPrice, String image, String description, boolean isNew, boolean isBestseller, List<String> sizes) {
+    public Product(int id, int categoryId, String sku, String name,
+            double price, Double discountPrice,
+            String image, String description,
+            boolean isNew, boolean isBestseller,
+            int stock, List<String> sizes) {
+
         this.id = id;
         this.categoryId = categoryId;
         this.sku = sku;
@@ -34,6 +36,7 @@ public class Product {
         this.description = description;
         this.isNew = isNew;
         this.isBestseller = isBestseller;
+        this.stock = stock;
         this.sizes = sizes;
     }
 
@@ -75,6 +78,10 @@ public class Product {
 
     public boolean isIsBestseller() {
         return isBestseller;
+    }
+
+    public int getStock() {
+        return stock;
     }
 
     public List<String> getSizes() {
@@ -121,8 +128,11 @@ public class Product {
         this.isBestseller = isBestseller;
     }
 
+    public void setStock(int stock) {
+        this.stock = stock;
+    }
+
     public void setSizes(List<String> sizes) {
         this.sizes = sizes;
     }
-
 }

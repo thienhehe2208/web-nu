@@ -142,6 +142,7 @@
                 <span class="close" onclick="closeModal()">&times;</span>
                 <h2 id="productName">Chọn sản phẩm</h2>
                 <form action="cart" method="post">
+                    <input type="hidden" name="action" value="add">
                     <input type="hidden" name="productId" id="productId">
                     <label>Size:</label><br><br>
                     <select name="size" required>
