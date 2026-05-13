@@ -20,6 +20,23 @@
         <title>TTQ SHOP</title>
         <meta charset="UTF-8">
         <link rel="stylesheet" href="css/Style.css">
+        <style>
+            /* Nút câu hỏi gợi ý chatbot */
+            .suggest-btn {
+                background: #fff0f5;
+                border: 1px solid #f4a0b0;
+                border-radius: 16px;
+                padding: 7px 12px;
+                font-size: 13px;
+                color: #c0395a;
+                cursor: pointer;
+                text-align: left;
+                transition: background 0.2s;
+            }
+            .suggest-btn:hover {
+                background: #ffd6e0;
+            }
+        </style>
         <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
         <!-- Font mới (menu/submenu đẹp hơn) -->
         <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600&display=swap" rel="stylesheet">
@@ -97,33 +114,40 @@
         <img src="img/chatbot.png">
     </div>
 
-    <div class="chat-box" id="chatBox">
+    <div class="chat-box" id="chatBox" style="display:none; flex-direction:column; height:480px;">
 
         <div class="chat-header">
             <img src="img/logo.png">
-
             <div>
                 <h4>TTQ SHOP</h4>
                 <span>Hỗ trợ khách hàng 24/7</span>
             </div>
         </div>
 
-        <div class="chat-content">
+        <div class="chat-content" id="chatContent"
+             style="flex:1; overflow-y:auto; padding:12px; display:flex; flex-direction:column; gap:8px;">
 
             <div class="message bot-message">
                 Xin chào 👋 TTQ SHOP có thể giúp gì cho bạn?
             </div>
-            
+
+            <div id="suggestions" style="display:flex; flex-direction:column; gap:6px; margin-top:4px;">
+                <p style="font-size:12px; color:#888; margin:0;">Bạn có thể hỏi:</p>
+                <button class="suggest-btn" onclick="askSuggestion('Shop có những loại giày gì?')">👟 Shop có những loại giày gì?</button>
+                <button class="suggest-btn" onclick="askSuggestion('Giày nào đang giảm giá?')">🏷️ Giày nào đang giảm giá?</button>
+                <button class="suggest-btn" onclick="askSuggestion('Hàng mới về có gì?')">✨ Hàng mới về có gì?</button>
+                <button class="suggest-btn" onclick="askSuggestion('Đơn hàng của tôi đang ở đâu?')">📦 Đơn hàng của tôi ở đâu?</button>
+            </div>
         </div>
 
         <div class="chat-footer">
             <input type="text"
+                   id="chatInput"
                    class="chat-input"
-                   placeholder="Nhập tin nhắn...">
+                   placeholder="Nhập tin nhắn..."
+                   onkeydown="if(event.key==='Enter') sendMessage()">
 
-            <button class="send-btn">
-                ➤
-            </button>
+            <button class="send-btn" onclick="sendMessage()">➤</button>
         </div>
 
     </div>
@@ -182,6 +206,7 @@
 
         <!-- SCRIPT -->
         <script>
+            // ===================== BANNER =====================
             let images = ["img/banners1.png", "img/banners2.png", "img/banners3.png", "img/banners4.png"];
             let index = 0;
             function showSlide() {
@@ -201,9 +226,18 @@
             }
             setInterval(nextSlide, 3000);
 
+            // ===================== MODAL =====================
             function toggleChat() {
                 let box = document.getElementById("chatBox");
-                box.style.display = box.style.display === "block" ? "none" : "block";
+                // dùng flex vì chat-box dùng flex-direction:column
+                box.style.display = (box.style.display === "flex") ? "none" : "flex";
+            }
+
+            // Khi bấm câu gợi ý: ẩn gợi ý, gửi câu hỏi luôn
+            function askSuggestion(text) {
+                document.getElementById("suggestions").style.display = "none";
+                document.getElementById("chatInput").value = text;
+                sendMessage();
             }
             function openModal(id, name) {
                 document.getElementById("cartModal").style.display = "block";
@@ -218,6 +252,83 @@
             }
             function closeContact() {
                 document.getElementById("contactModal").style.display = "none";
+            }
+
+            // ===================== CHATBOT =====================
+            // Lưu lịch sử hội thoại để gửi context lên server
+            let chatMessages = [];
+
+            function sendMessage() {
+                const input   = document.getElementById("chatInput");
+                const content = document.getElementById("chatContent");
+                const text    = input.value.trim();
+                if (!text) return;
+
+                // Hiển thị tin nhắn của user
+                appendMessage(content, text, "user-message");
+                input.value = "";
+
+                // Thêm vào lịch sử
+                chatMessages.push({ role: "user", content: text });
+
+                // Hiển thị loading
+                const loadingId = "loading-" + Date.now();
+                appendMessageWithId(content, "Đang trả lời...", "bot-message", loadingId);
+
+                // Gọi ChatbotServlet
+                fetch("ChatbotServlet", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json; charset=UTF-8" },
+                    body: JSON.stringify({ messages: chatMessages })
+                })
+                .then(res => res.json())
+                .then(data => {
+                    // Xóa loading
+                    const loadingEl = document.getElementById(loadingId);
+                    if (loadingEl) loadingEl.remove();
+
+                    // Lấy text từ response (format Claude)
+                    let botReply = "Xin lỗi, tôi không hiểu. Vui lòng thử lại!";
+                    if (data.content && data.content.length > 0) {
+                        botReply = data.content[0].text || botReply;
+                    } else if (data.error) {
+                        botReply = "Lỗi: " + data.error;
+                    }
+
+                    // Hiển thị và lưu lịch sử
+                    appendMessage(content, botReply, "bot-message");
+                    chatMessages.push({ role: "assistant", content: botReply });
+
+                    // Giới hạn lịch sử 20 tin nhắn để tránh quá dài
+                    if (chatMessages.length > 20) {
+                        chatMessages = chatMessages.slice(chatMessages.length - 20);
+                    }
+                })
+                .catch(err => {
+                    const loadingEl = document.getElementById(loadingId);
+                    if (loadingEl) loadingEl.remove();
+                    appendMessage(content, "Lỗi kết nối, vui lòng thử lại!", "bot-message");
+                    console.error("Chatbot error:", err);
+                });
+            }
+
+            // Thêm tin nhắn vào chat (không có id)
+            function appendMessage(container, text, cssClass) {
+                const div = document.createElement("div");
+                div.className = "message " + cssClass;
+                div.innerText = text;
+                container.appendChild(div);
+                container.scrollTop = container.scrollHeight;
+            }
+
+            // Thêm tin nhắn có id (dùng cho loading)
+            function appendMessageWithId(container, text, cssClass, id) {
+                const div = document.createElement("div");
+                div.className = "message " + cssClass;
+                div.id = id;
+                div.innerText = text;
+                container.appendChild(div);
+                container.scrollTop = container.scrollHeight;
             }
         </script>
 
