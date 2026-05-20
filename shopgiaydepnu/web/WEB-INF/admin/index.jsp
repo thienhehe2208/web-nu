@@ -55,7 +55,7 @@
         }
         .topbar h1 { font-size: 1.2rem; font-weight: 600; color: #222; }
         .topbar .admin-info { font-size: 0.88rem; color: #888; }
-        .topbar .admin-info b { color: #222; }
+        .topbar .admin-info b { color: #e74c3c; }
 
         .content { padding: 32px; }
 

@@ -22,7 +22,7 @@
     <!-- RIGHT -->
     <div class="header-right">
         <% if (loggedUser != null) {%>
-        <span style="color:#fff; font-size:13px;">
+        <span style="color:#1a1a1a; font-size:13px;">
             👤 <b><%= loggedUser.getAccountName()%></b>
         </span>
         <% if (loggedUser != null && loggedUser.isAdmin()) { %>

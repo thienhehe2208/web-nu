@@ -29,7 +29,7 @@
         table { width: 100%; border-collapse: collapse; background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 12px rgba(0,0,0,0.06); }
         thead { background: #1a1a2e; color: #fff; }
         th { padding: 14px 16px; text-align: left; font-size: 0.88rem; font-weight: 600; }
-        td { padding: 12px 16px; border-bottom: 1px solid #f0f0f0; font-size: 0.88rem; color: #333; vertical-align: middle; }
+        td { padding: 12px 16px; border-bottom: 1px solid #f0f0f0; font-size: 0.88rem; color: #e74c3c; vertical-align: middle; }
         tr:last-child td { border-bottom: none; }
         .badge-admin { background: #fdecea; color: #c0392b; padding: 3px 10px; border-radius: 20px; font-size: 0.78rem; font-weight: 700; }
         .badge-user  { background: #eaf4fb; color: #1a5276; padding: 3px 10px; border-radius: 20px; font-size: 0.78rem; font-weight: 600; }

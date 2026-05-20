@@ -14,9 +14,9 @@
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { font-family: 'Poppins', sans-serif; background: #f4f6fb; display: flex; min-height: 100vh; }
-        .sidebar { width: 230px; background: #1a1a2e; color: #fff; display: flex; flex-direction: column; flex-shrink: 0; }
+        .sidebar { width: 230px; background: #1a1a2e; color: #222; display: flex; flex-direction: column; flex-shrink: 0; }
         .sidebar-logo { padding: 24px 20px; font-size: 1.2rem; font-weight: 700; border-bottom: 1px solid rgba(255,255,255,0.08); color: #e74c3c; }
-        .sidebar-logo span { color: #fff; font-weight: 300; }
+        .sidebar-logo span { color: #222; font-weight: 300; }
         .sidebar nav { flex: 1; padding: 16px 0; }
         .sidebar nav a { display: flex; align-items: center; gap: 10px; padding: 12px 20px; color: #bbb; text-decoration: none; font-size: 0.93rem; border-left: 3px solid transparent; transition: all 0.2s; }
         .sidebar nav a:hover, .sidebar nav a.active { background: rgba(231,76,60,0.12); color: #fff; border-left-color: #e74c3c; }
@@ -31,7 +31,7 @@
         th { padding: 14px 16px; text-align: left; font-size: 0.88rem; font-weight: 600; }
         td { padding: 12px 16px; border-bottom: 1px solid #f0f0f0; font-size: 0.88rem; color: #333; vertical-align: top; }
         tr:last-child td { border-bottom: none; }
-        .msg-cell { max-width: 300px; white-space: pre-wrap; word-break: break-word; }
+        .msg-cell { max-width: 200px; white-space: pre-wrap; word-break: break-word; }
         .btn-del { background: #e74c3c; color: #fff; padding: 5px 12px; border-radius: 6px; text-decoration: none; font-size: 0.82rem; font-weight: 600; }
         .btn-del:hover { background: #c0392b; }
         .empty { text-align: center; padding: 60px; color: #aaa; font-size: 1rem; }

@@ -61,52 +61,122 @@
             
         </div>
         
+        <!-- MAIN LAYOUT -->
+<div class="main-layout">
+
+    <!-- SIDEBAR -->
+    <div class="left-sidebar">
+
         <jsp:include page="menu.jsp"/>
+
+    </div>
+
+    <!-- CONTENT -->
+    <div class="main-content">
+
+        <!-- DANH MỤC NGANG -->
+        <div class="category-bar">
+
+            <a class="category-item" href="ProductServlet">
+                TẤT CẢ SẢN PHẨM
+            </a>
+
+            <% if (categories != null) {
+                for (Category c : categories) { %>
+
+                <a class="category-item"
+                   href="ProductServlet?action=filter&categoryId=<%= c.getId() %>">
+
+                     <%= c.getName() %>
+
+                </a>
+
+            <% }
+            } %>
+
+        </div>
 
         <!-- DANH SÁCH SẢN PHẨM -->
         <h2 class="section-title"><%= pageTitle%></h2>
+
         <div class="products">
+
             <%
                 if (allProducts == null || allProducts.isEmpty()) {
             %>
+
             <p class="no-result">Không có sản phẩm nào!</p>
+
             <%
             } else {
                 for (Product p : allProducts) {
                     String pName = p.getName().replace("'", "\\'");
             %>
+
             <div class="product">
+
                 <img src="<%= p.getImage()%>" width="100%">
-                <% if (p.isIsNew()) { %><span class="badge-new">MỚI</span><% } %>
-                <% if (p.isIsBestseller()) { %><span class="badge-hot">🔥 HOT</span><% }%>
-                <h3><%= p.getName()%></h3>
-                <% if (p.getDiscountPrice() != null && p.getDiscountPrice() > 0) {%>
-                <p class="price-original"><del><%= fmt.format((long) p.getPrice())%>đ</del></p>
-                <p class="price-sale"><%= fmt.format(p.getDiscountPrice().longValue())%>đ</p>
-                <% } else {%>
-                <p class="price"><%= fmt.format((long) p.getPrice())%>đ</p>
+
+                <% if (p.isIsNew()) { %>
+                    <span class="badge-new">MỚI</span>
+                <% } %>
+
+                <% if (p.isIsBestseller()) { %>
+                    <span class="badge-hot">🔥 HOT</span>
                 <% }%>
+
+                <h3><%= p.getName()%></h3>
+
+                <% if (p.getDiscountPrice() != null && p.getDiscountPrice() > 0) {%>
+
+                    <p class="price-original">
+                        <del><%= fmt.format((long) p.getPrice())%>đ</del>
+                    </p>
+
+                    <p class="price-sale">
+                        <%= fmt.format(p.getDiscountPrice().longValue())%>đ
+                    </p>
+
+                <% } else {%>
+
+                    <p class="price">
+                        <%= fmt.format((long) p.getPrice())%>đ
+                    </p>
+
+                <% }%>
+
                 <div class="product-actions">
 
-    <a href="ProductServlet?action=detail&id=<%= p.getId()%>" class="info-btn">
-        <img src="img/thongtinsp.png">
-        Thông Tin
-    </a>
+                    <a href="ProductServlet?action=detail&id=<%= p.getId()%>"
+                       class="info-btn">
 
-    <button class="add-cart-btn"
-            onclick="openModal(<%= p.getId()%>, '<%= pName%>')">
-        <img src="img/them.png">
-        Thêm vào giỏ
-    </button>
+                        <img src="img/thongtinsp.png">
+                        Thông Tin
 
-</div>
+                    </a>
+
+                    <button class="add-cart-btn"
+                            onclick="openModal(<%= p.getId()%>, '<%= pName%>')">
+
+                        <img src="img/them.png">
+                        Thêm vào giỏ
+
+                    </button>
+
+                </div>
+
             </div>
+
             <%
                     }
                 }
             %>
+
         </div>
 
+    </div>
+
+</div>
         <!-- CHATBOT -->
         <div class="chatbot">
 
